@@ -10,13 +10,18 @@
 package com.indraazimi.mobpro2
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.indraazimi.mobpro2.model.Harian
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
+
+    private val data = MutableLiveData<List<Harian>>()
 
     init {
         viewModelScope.launch {
@@ -29,10 +34,13 @@ class MainViewModel : ViewModel() {
     private suspend fun requestData() {
         try {
             val result = Covid19Api.service.getData()
-            Log.d("REQUEST", "Data size: ${result.update.harian.size}")
+            data.postValue(result.update.harian)
         }
         catch (e: Exception) {
             Log.d("REQUEST", e.message.toString())
         }
     }
+
+    fun getData(): LiveData<List<Harian>> = data
+
 }

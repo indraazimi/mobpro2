@@ -12,17 +12,31 @@ package com.indraazimi.mobpro2
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
     private lateinit var binding: ActivityMainBinding
+    private lateinit var myAdapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewModelProvider(this)[MainViewModel::class.java]
+        myAdapter = MainAdapter()
+        with(binding.recyclerView) {
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+            setHasFixedSize(true)
+            adapter = myAdapter
+        }
+
+        viewModel.getData().observe(this) { myAdapter.setData(it) }
     }
 }

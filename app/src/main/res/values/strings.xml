@@ -8,5 +8,6 @@
   -->
 
 <resources>
-    <string name="app_name">Mobpro 2</string>
+    <string name="app_name">Covid-19 ID</string>
+    <string name="x_orang">%1$,d orang</string>
 </resources>
