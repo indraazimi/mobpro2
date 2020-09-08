@@ -11,6 +11,7 @@ package com.indraazimi.mobpro2
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,5 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 }
