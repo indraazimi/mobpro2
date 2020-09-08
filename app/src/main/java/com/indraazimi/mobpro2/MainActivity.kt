@@ -21,7 +21,12 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +54,27 @@ class MainActivity : AppCompatActivity() {
             legend.setDrawInside(false)
         }
 
+        // Berfungsi agar label yang tampil di sumbu X menjadi tanggal
+        val formatter = SimpleDateFormat("dd MMM", Locale("ID", "id"))
+        binding.chart.xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val pos = value.toInt() - 1
+                val isValidPosition = pos >= 0 && pos < myAdapter.itemCount
+                return if (isValidPosition)
+                    formatter.format(myAdapter.getDate(pos)) else ""
+            }
+        }
+
+        // Berfungsi agar ketika grafik di-klik oleh pengguna,
+        // RecyclerView akan scroll menampilkan data yang sesuai
+        binding.chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(entry: Entry?, highlight: Highlight) {
+                val pos = myAdapter.itemCount - highlight.x.toInt()
+                binding.recyclerView.scrollToPosition(pos)
+            }
+
+            override fun onNothingSelected() {}
+        })
 
         myAdapter = MainAdapter()
         with(binding.recyclerView) {
