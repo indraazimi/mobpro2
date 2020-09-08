@@ -10,4 +10,5 @@
 <resources>
     <string name="app_name">Covid-19 ID</string>
     <string name="x_orang">%1$,d orang</string>
+    <string name="network_error">Network error</string>
 </resources>

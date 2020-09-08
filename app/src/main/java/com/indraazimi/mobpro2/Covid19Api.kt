@@ -16,6 +16,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
+enum class ApiStatus { LOADING, SUCCESS, FAILED }
+
 object Covid19Api {
 
     private const val BASE_URL = "https://raw.githubusercontent.com/indraazimi/mobpro2/static-api/"
