@@ -29,7 +29,7 @@ class MainViewModel : ViewModel() {
     private suspend fun requestData() {
         try {
             val result = Covid19Api.service.getData()
-            Log.d("REQUEST", result.substring(0, 100))
+            Log.d("REQUEST", "Data size: ${result.update.harian.size}")
         }
         catch (e: Exception) {
             Log.d("REQUEST", e.message.toString())
