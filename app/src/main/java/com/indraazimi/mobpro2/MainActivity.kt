@@ -12,9 +12,15 @@ package com.indraazimi.mobpro2
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +37,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        with(binding.chart) {
+            setNoDataText(getString(R.string.belum_ada_data))
+            description.text = ""
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            axisLeft.axisMinimum = 0f
+            axisRight.isEnabled = false
+
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            legend.setDrawInside(false)
+        }
+
+
         myAdapter = MainAdapter()
         with(binding.recyclerView) {
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -39,7 +58,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.getData().observe(this) { myAdapter.setData(it) }
+        viewModel.getEntries().observe(this) { updateChart(it) }
         viewModel.getStatus().observe(this) { updateProgress(it) }
+    }
+
+    private fun updateChart(entries: List<Entry>) {
+        val dataset = LineDataSet(entries, getString(R.string.jumlah_kasus_positif))
+        dataset.color = ContextCompat.getColor(this, R.color.purple_500)
+        dataset.fillColor = dataset.color
+        dataset.setDrawFilled(true)
+        dataset.setDrawCircles(false)
+
+        binding.chart.data = LineData(dataset)
+        binding.chart.invalidate()
     }
 
     private fun updateProgress(status: ApiStatus) {
