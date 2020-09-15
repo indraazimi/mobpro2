@@ -10,19 +10,20 @@
 package com.indraazimi.mobpro2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private val contract = FirebaseAuthUIActivityResultContract()
-    private val signInLauncher = registerForActivityResult(contract) {
-        onSignInResult(it)
+    private val signInLauncher = registerForActivityResult(contract) { }
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -33,24 +34,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.login.setOnClickListener { mulaiLogin() }
+
+        viewModel.authState.observe(this) { updateUI(it) }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+        binding.login.text = if (user == null)
+            getString(R.string.login)
+        else
+            getString(R.string.logout)
     }
 
     private fun mulaiLogin() {
+        if (binding.login.text == getString(R.string.logout)) {
+            AuthUI.getInstance().signOut(this)
+            return
+        }
+
         val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
         val intent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
             .build()
         signInLauncher.launch(intent)
-    }
-
-    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-        val response = result.idpResponse
-        if (result.resultCode == RESULT_OK) {
-            val nama = FirebaseAuth.getInstance().currentUser?.displayName
-            Log.i("LOGIN", "$nama berhasil login")
-        } else {
-            Log.i("LOGIN", "Login gagal: ${response?.error?.errorCode}")
-        }
     }
 }
