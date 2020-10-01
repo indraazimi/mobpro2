@@ -10,12 +10,19 @@
 package com.indraazimi.mobpro2
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.indraazimi.mobpro2.data.Mahasiswa
+import com.indraazimi.mobpro2.data.MahasiswaDb
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
+
+    private val viewModel: MainViewModel by lazy {
+        val dataSource = MahasiswaDb.getInstance(this).dao
+        val factory = MainViewModelFactory(dataSource)
+        ViewModelProvider(this, factory)[MainViewModel::class.java]
+    }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -30,6 +37,6 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     }
 
     override fun processDialog(mahasiswa: Mahasiswa) {
-        Log.d("MainActivity", mahasiswa.toString())
+        viewModel.insertData(mahasiswa)
     }
 }
