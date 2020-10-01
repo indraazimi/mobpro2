@@ -12,6 +12,7 @@ package com.indraazimi.mobpro2
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.indraazimi.mobpro2.data.Mahasiswa
 import com.indraazimi.mobpro2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
         }
     }
 
-    override fun processDialog() {
-        Log.d("MainActivity", "Dialog button clicked!")
+    override fun processDialog(mahasiswa: Mahasiswa) {
+        Log.d("MainActivity", mahasiswa.toString())
     }
 }
