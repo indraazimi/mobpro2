@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2020-2023 Indra Azimi. All rights reserved.
   ~
@@ -8,11 +9,5 @@
   -->
 
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Mobpro2" parent="Theme.Material3.DayNight">
-        <!-- Customize your light theme here. -->
-        <item name="colorAccent">@color/lavender</item>
-    </style>
-
-    <style name="Theme.Mobpro2" parent="Base.Theme.Mobpro2" />
+    <dimen name="horizontal_margin">24dp</dimen>
 </resources>
