@@ -9,6 +9,7 @@
 
 package com.indraazimi.mobpro2.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.indraazimi.mobpro2.data.Mahasiswa
@@ -19,7 +20,9 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel(private val db : MahasiswaDao) : ViewModel() {
 
-    val data = db.getData()
+    fun getData(kelas: String): LiveData<List<Mahasiswa>> {
+        return db.getData(kelas)
+    }
 
     fun insertData(mahasiswa: Mahasiswa) {
         viewModelScope.launch {
