@@ -7,9 +7,9 @@
   ~ terhadap project ini tanpa izin pemilik hak cipta.
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.Mobpro2" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Mobpro2" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
