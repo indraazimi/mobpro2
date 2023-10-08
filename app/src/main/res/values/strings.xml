@@ -8,5 +8,6 @@
   -->
 
 <resources>
-    <string name="app_name">Mobpro 2</string>
+    <string name="app_name">Login Firebase</string>
+    <string name="login">Login</string>
 </resources>
