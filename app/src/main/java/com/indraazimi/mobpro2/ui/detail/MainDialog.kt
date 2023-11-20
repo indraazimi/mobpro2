@@ -7,7 +7,7 @@
  * terhadap project ini tanpa izin pemilik hak cipta.
  */
 
-package com.indraazimi.mobpro2
+package com.indraazimi.mobpro2.ui.detail
 
 import android.app.Dialog
 import android.os.Bundle
@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.indraazimi.mobpro2.R
 import com.indraazimi.mobpro2.data.Mahasiswa
 import com.indraazimi.mobpro2.databinding.DialogMainBinding
 
