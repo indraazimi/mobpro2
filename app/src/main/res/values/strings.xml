@@ -9,4 +9,6 @@
 
 <resources>
     <string name="app_name">Mobpro 2</string>
+    <string name="mulai">Mulai</string>
+    <string name="tidak_dapat_izin">Tidak mendapat izin kamera</string>
 </resources>
