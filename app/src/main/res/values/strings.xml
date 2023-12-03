@@ -11,4 +11,10 @@
     <string name="app_name">Mobpro 2</string>
     <string name="mulai">Mulai</string>
     <string name="tidak_dapat_izin">Tidak mendapat izin kamera</string>
+    <string name="hasil_deteksi_wajah_0">Hasil deteksi wajah akan muncul di sini..</string>
+    <string name="hasil_deteksi_wajah_1">
+        Mata kanan terbuka: %1$.0f%%\n
+        Mata kiri terbuka: %2$.0f%%\n
+        Sedang senyum: %3$.0f%%
+    </string>
 </resources>
